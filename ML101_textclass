@@ -1,0 +1,30 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Sep  7 11:31:24 2016
+
+@author: jf186031
+"""
+
+import re
+import string
+from prettytable import PrettyTable
+
+def remove_punctuation(s):
+    "see http://stackoverflow.com/questions/265960/best-way-to-strip-punctuation-from-a-string-in-python"
+    table = string.maketrans("","")
+    return s.translate(table, string.punctuation)
+
+def tokenize(text):
+    text = remove_punctuation(text)
+    text = text.lower()
+    return re.split("\W+", text)
+
+def count_words(words):
+    wc = {}
+    for word in words:
+        wc[word] = wc.get(word, 0.0) + 1.0
+    return wc
+
+s = "Hello my name, is Greg. My favorite food is pizza."
+count_words(tokenize(s))
+{'favorite': 1.0, 'food': 1.0, 'greg': 1.0, 'hello': 1.0, 'is': 2.0, 'my': 2.0, 'name': 1.0, 'pizza': 1.0}
